@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/angular1.4.6.min.js"></script>
+		<script type="text/javascript" src="../05AngularJS 控制器/ namesController.js"></script>
+	</head>
+
+	<body>
+		<div ng-app="myApp" ng-controller="namesCtrl">
+
+			<p><input type="text" ng-model="test"></p>
+
+			<ul>
+				<li ng-repeat="x in names | filter:test | orderBy:'country'">
+					{{ (x.name | uppercase) + ', ' + x.country }}
+				</li>
+			</ul>
+
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<h3>#组件选项问题</h3>
+		<div id="dr0501">
+			<data-component></data-component>
+		</div>
+		<div id="dr0502">
+			<data-component></data-component>
+		</div>
+	</body>
+	<script>
+		//组件选项问题
+		var lover = {
+			name: "zhangyao",
+			age: "25",
+		};
+		//DataComponent的data和el选项必须是有返回值的函数，并且template中如果要引入数据的话，只能引入这里定义的data
+		var DataComponent = Vue.extend({
+			data: function() {
+				return lover;
+			},
+			template: "<div>name: {{name}}, age: {{age}}</div>"
+		});
+		//在dr0501和dr0502的实例中都注册DataComponent组件
+		var dr0501 = new Vue({
+			el: "#dr0501",
+			components: {
+				"data-component": DataComponent,
+			}
+		});
+		var dr0502 = new Vue({
+			el: "#dr0502",
+			components: {
+				"data-component": DataComponent,
+			}
+		});
+	</script>
+
+</html>

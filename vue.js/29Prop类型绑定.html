@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		prop 默认是单向绑定：当父组件的属性变化时，将传导给子组件，但是反过来不会。这是为了防止子组件无意修改了父组件的状态——这会让应用的数据流难以理解。不过，也可以使用 .sync 或 .once 绑定修饰符显式地强制双向或单次绑定： 注意：双向绑定会把子组件的 msg 属性同步回父组件的 parentMsg 属性。单次绑定在建立之后不会同步之后的变化。
+		<br /><br /><br />
+		<h3>#Prop类型绑定（单向、双向）</h3>
+		<div id="dr05">
+			<div>
+				<div>vue实例：</div>
+				<input v-model="name" />
+			</div>
+			<br />
+			<div>
+				<div>component组件（默认）：</div>
+				<child05 :my-message05="name"></child05>
+				<div>component组件（once）：</div>
+				<child05 :my-message05.once="name"></child05>
+				<div>component组件（sync）：</div>
+				<child05 :my-message05.sync="name"></child05>
+			</div>
+		</div>
+	</body>
+<script>
+	//********************************************************************
+//Prop类型绑定
+Vue.component("child05", {
+    props: ["myMessage05"],
+    template: '<input type="text" v-model="myMessage05" />'
+});
+var dr05 = new Vue({
+    el: "#dr05",
+    data: {
+        name: "DarkRanger",
+    }
+});
+</script>
+</html>

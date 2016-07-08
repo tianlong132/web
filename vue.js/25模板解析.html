@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<h3>#模板解析</h3>
+		<div>
+			<span>Vue的模板是Dom模板，所以它必须是有效的html片段，对放在html模板中的元素有限制：</span>
+			<ul>
+				<li>a标签不能包含其他的交互元素（按钮和链接）</li>
+				<li>ul和ol只能直接包含li</li>
+				<li>select只能包含option和optgroup</li>
+				<li>table只能包含thead、tbody、tr、caption、col、colgroup</li>
+				<li>tr只能直接包含th、td</li>
+			</ul>
+			<span>另外，自定义个组件不是有效的模板，即便my-select组件最终展开为select下拉菜单片段，也会解析失败</span>
+		</div>
+		<div id="dr06">
+			<h4>遍历vue实例中的data</h4>
+			<div v-for="item in items">
+				<div>index: {{$index}}, name: {{item.name}}, desc: {{item.desc}}
+
+				</div>
+			</div>
+			<h4>遍历vue组件中的data</h4>
+			<div>
+				<temp-component></temp-component>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script>
+	//模板解析
+	//这里的data数据只能供模板使用
+	var TempComponent = Vue.extend({
+		data: function() {
+			return {
+				tempItems: [{
+					name: "tempNameA",
+					desc: "tempDescA"
+				}, {
+					name: "tempNameB",
+					desc: "tempDescB"
+				}, {
+					name: "tempNameC",
+					desc: "tempDescC"
+				}, ]
+			}
+		},
+		//在模板中定义的有item遍历，其中tempItems的数据只能来源于TempComponent中的data数据
+		template: "<div v-for='tempItem in tempItems'>index: {{$index}}, name: {{tempItem.name}}, desc: {{tempItem.desc}}<div>"
+	});
+	//这里的data数据不能使用在模板中
+	var dr06 = new Vue({
+		el: "#dr06",
+		data: {
+			items: [{
+				name: "name01",
+				desc: "desc01"
+			}, {
+				name: "name02",
+				desc: "desc02"
+			}, {
+				name: "name03",
+				desc: "desc03"
+			}]
+		},
+		components: {
+			"temp-component": TempComponent,
+		}
+	});
+</script>

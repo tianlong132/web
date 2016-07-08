@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<style>
+			.item {
+				margin: 1px;
+				padding: 5px 0 5px 0;
+			}
+			
+			.item:hover {
+				background: #cccccc;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="dr01">
+			<h3>v-text</h3>
+			<div v-text="msgText"></div>
+			<div>{{msgText}}</div>
+			<hr />
+
+			<h3>v-html</h3>
+			<div v-html="msgHtml"></div>
+			<div>{{{msgHtml}}}</div>
+			<hr />
+
+			<h3>v-if</h3>
+			<div>msgBoolean01:true</div>
+			<div v-if="msgBoolean01">(here is v-if code block)if msgBoolean01 is true show this div</div>
+			<div v-else>(here is v-else code block)if msgBoolean01 is false show this div</div>
+			<br />
+			<div>msgBoolean01:false</div>
+			<div v-if="msgBoolean02">(here is v-if code block)if msgBoolean02 is true show this div</div>
+			<div v-else>(here is v-else code block)if msgBoolean02 is false show this div</div>
+
+			<h3>template v-if</h3>
+			<div>msgBoolean01:true</div>
+			<template v-if="msgBoolean01">
+				<div>(here is template v-if code block)if msgBoolean01 is true show this div</div>
+			</template>
+			<template v-else>
+				<div>(here is template v-else code block)if msgBoolean01 is false show this div</div>
+			</template>
+			<br />
+			<div>msgBoolean02:false</div>
+			<template v-if="msgBoolean02">
+				<div>(here is template v-if code block)if msgBoolean02 is true show this div</div>
+			</template>
+			<template v-else>
+				<div>(here is template v-else code block)if msgBoolean02 is false show this div</div>
+			</template>
+
+			<h3>v-show</h3>
+			<div>msgBoolean01:true</div>
+			<div v-show="msgBoolean01">(here is v-show code block)if msgBoolean01 is true show this div</div>
+			<div v-else>(here is v-else code block)if msgBoolean01 is false show this div</div>
+			<br />
+			<div>msgBoolean01:false</div>
+			<div v-show="msgBoolean02">(here is v-show code block)if msgBoolean02 is true show this div</div>
+			<div v-else>(here is v-else code block)if msgBoolean02 is false show this div</div>
+
+			<h3>v-else（不需要表达式）</h3>
+			<div>限制：前一兄弟必须有v-if或者v-show</div>
+			<div>v-else的用法：上面三个例子中都有使用，请参考代码</div>
+
+			<hr />
+
+			<h3>v-for</h3>
+			<div>遍历数组：</div>
+			<ul>
+				<li v-for="(index,item) in itemArrs">
+					<!-- index代表的是当前item的下标，如果要取出下标的值则用{{$index}}即可 -->
+					index:{{$index}}, item:{{item}}
+				</li>
+			</ul>
+			<div>遍历对象key、value（不带下标index）</div>
+			<ul>
+				<li v-for="(key,value) in itemObjs">
+					<!-- 
+                    key代表的是当前对象的属性名称，value代表的是当前对象的属性值
+                    key取值的时候可以用{{$key}}，也可以使用{{key}}
+                    value取值的时候只能用{{value}}
+                    建议：遍历对象不带index下标的时候同时用{{key}}和{{value}}
+                 -->
+					$key:{{$key}},key:{{key}}, value:{{value}}
+				</li>
+			</ul>
+			<div>遍历对象key、value（带下标index）</div>
+			<ul>
+				<li v-for="(index,key,value) in itemObjs">
+					<!-- 
+                    index代表的是当前属性的下标，key代表的是当前对象的属性名称，value代表的是当前对象的属性值
+                    index取值的时候只能用{{$index}}
+                    key取值的时候只能用{{$key}}
+                    value取值的时候只能用{{value}}
+                    建议：遍历对象不带index下标的时候同时用{{key}}和{{value}}
+                 -->
+					$index:{{$index}}, $key:{{$key}}, value:{{value}}
+				</li>
+			</ul>
+
+			<hr />
+			<h3>v-on</h3>
+			<ul>
+				<li v-for="(index,item) in itemArrs">
+					<div class="item" v-on:click="itemClick01">
+						<span>index:{{$index}}, item:{{item}}</span>
+						<button v-on:click="itemClick02($index,item)">内联语句（参数item参数）</button>
+						<button v-on:click="itemClick03(item,$event)">内联语句（参数event参数）</button>
+						<button v-on:click.stop="itemClickStop(item)">阻止冒泡</button>
+						<a href="http://www.baidu.com">跳转到百度</a>
+						<a href="http://www.baidu.com" v-on:click.prevent="itemClickPrevent()">阻止a标签默认行为，不会跳转到百度</a>
+						<input v-on:keyup.enter="keyUpEnter($event)" placeholder="获取焦点后点击enter试试" />
+					</div>
+				</li>
+			</ul>
+			<h3>v-bind</h3>
+			<div>
+				<!-- 绑定 attribute -->
+				<img v-bind:src="imageSrc">
+
+				<!-- 缩写 -->
+				<img :src="imageSrc">
+
+				<!-- 绑定 class -->
+				<div :class="{ red: isRed }">对象class</div>
+				<div :class="[classA, classB]">数组class</div>
+				<div :class="[classA, { classB: isB, classC: isC }]">对象数组class混用</div>
+
+				<!-- 绑定 style -->
+				<div :style="{ fontSize: size + 'px' }">对象style</div>
+				<div :style="[styleObjectA, styleObjectB]" style="background-color: ;">数组style</div>
+			</div>
+		</div>
+
+	</body>
+	<script>
+		var dr01 = new Vue({
+			el: "#dr01",
+			data: {
+				msgText: "this is msgText!",
+				msgHtml: '<span style="color:red;">this is msgHtml</span>',
+				msgBoolean01: true,
+				msgBoolean02: false,
+				itemArrs: ["item A", "item B", "item C", "item D"],
+				itemObjs: {
+					key01: "this is value01",
+					key02: "this is value02",
+					key03: "this is value03"
+				},
+				imageSrc: "img/favicon.ico",
+				isRed: true,
+				classA: "class-a",
+				classB: "class-b",
+				isB: true,
+				isC: true,
+				size: "14",
+				styleObjectA: {
+					backgroundColor: "#cccccc"
+				},
+				styleObjectB: {
+					color: "red"
+				},
+			},
+			methods: {
+				//方法处理器
+				itemClick01: function() {
+					console.log("u clicked the parent div");
+				},
+				//内联语句
+				itemClick02: function(index, item) {
+					console.log("current index: " + index + "; item: " + item);
+				},
+				//event参数传递
+				itemClick03: function(item, event) {
+					console.log("current item: " + item + "; event target tagName: " + event.target.tagName);
+				},
+				//阻止冒泡
+				itemClickStop: function(item) {
+					console.log("child button is clicked, please watch whether the parent div's log is priented!")
+				},
+				//阻止默认的行为
+				itemClickPrevent: function() {
+					console.log("Prevent Default behaviour");
+				},
+				//点击
+				keyUpEnter: function(event) {
+					console.log("keyCode: " + event.keyCode);
+				},
+			}
+		})
+	</script>
+
+</html>

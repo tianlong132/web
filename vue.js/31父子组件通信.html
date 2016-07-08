@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<h3>#父链</h3>
+		<div>
+			<div>子组件可以用 this.$parent 访问它的父组件。根实例的后代可以用 this.$root 访问它。父组件有一个数组 this.$children，包含它所有的子元素。</div>
+			<div>
+				尽管可以访问父链上任意的实例，不过子组件应当避免直接依赖父组件的数据，尽量显式地使用 props 传递数据。另外，在子组件中修改父组件的状态是非常糟糕的做法，因为：
+				<ul>
+					<li>这让父组件与子组件紧密地耦合；</li>
+					<li>只看父组件，很难理解父组件的状态。因为它可能被任意子组件修改！理想情况下，只有组件自己能修改它的状态。
+					</li>
+				</ul>
+			</div>
+			<div id="dr01">
+				<child01></child01>
+			</div>
+		</div>
+	</body>
+	<script>
+		//***************************************************************
+		//父链
+		//自定义子代组件child01
+		Vue.component("child01", {
+			data: function() {
+				return {
+					cMsg: "this is child msg!",
+					cParentMsg: this.$parent.dr01Msg, //child01的上级信息就是dr01的dr01Msg
+					cRootMsg: this.$root.rootMsg, //child01的根信息就是dr01的rootMsg
+				}
+			},
+			template: "<div>cMsg: {{cMsg}}, cParentMsg: {{cParentMsg}}, cRootMsg: {{cRootMsg}}</div>" + "<grandson01 :s-parent-msg='cMsg'></grandson01>"
+		});
+		//自定义孙代组件grandson01，
+		Vue.component("grandson01", {
+			data: function() {
+				return {
+					sMsg: "this is grandsonMsg1",
+					sRootMsg: this.$root.rootMsg, //grandson01根信息就是dr01的rootMsg
+				}
+			},
+			//grandson01上级信息就是child01的cMsg,
+			　 //在这里使用props属性，将子代cMsg赋给孙代的“sParentMsg”，示例：在子代模板中：<grandson01 :s-parent-msg='cMsg'></grandson01>
+			props: ["sParentMsg"],
+			template: "<div>sMsg: {{sMsg}}, sParentMsg: {{sParentMsg}}, sRootMsg: {{sRootMsg}}</div>"
+		})
+		var dr01 = new Vue({
+			el: "#dr01",
+			data: {
+				dr01Msg: "this is dr01Msg!",
+				rootMsg: "this is rootMsg!",
+			},
+		});
+	</script>
+
+</html>

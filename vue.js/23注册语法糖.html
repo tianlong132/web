@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<h3>#注册语法糖</h3>
+		<div id="dr0301">
+			<span>dr0301使用语法糖注册的全局组件</span>
+			<globalcomponent01></globalcomponent01>
+		</div>
+		<br />
+		<div id="dr0302">
+			<span>dr0302使用语法糖注册的全局组件</span>
+			<globalcomponent01></globalcomponent01>
+		</div>
+		<br />
+		<div id="dr0401">
+			<span>dr0401使用没有用语法糖注册的局部组件</span>
+			<localcomponent01></localcomponent01>
+		</div>
+		<br />
+		<div id="dr0402">
+			<span>dr0402使用用语法糖注册的局部组件</span>
+			<localcomponent01></localcomponent01>
+		</div>
+	</body>
+	<script>
+		//注册语法糖
+		//1.1 在一个步骤中扩展与注册一个全局
+		Vue.component("globalcomponent01", {
+			template: "<div>this is globalcomponent01</div>",
+		});
+		//1.2 在dr0301中使用注册的全局组件globalcomponent01
+		var dr0301 = new Vue({
+			el: "#dr0301",
+		});
+		//1.3 在dr0302中使用注册的全局组件globalcomponent01
+		var dr0302 = new Vue({
+			el: "#dr0302",
+		});
+		//2.1  在dr0401中直接使用没有注册过的localcomponent01
+		var dr0401 = new Vue({
+			el: "#dr0401",
+		});
+		//2.2 在dr0402中直接使用注册的localcomponent01
+		var dr0402 = new Vue({
+			el: "#dr0402",
+			components: {
+				"localcomponent01": {
+					template: "<div>this is localcomponent01</div>",
+				},
+			}
+		});
+	</script>
+
+</html>

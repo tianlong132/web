@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+       <script type="text/javascript" src="js/vue.js" ></script>
+        <title></title>
+    </head>
+
+    <body>
+        <h2>表单控件</h2>
+        <div id="dr01">
+            <div>
+                <h4>#Text</h4>
+                <span>Message is: {{ message }}</span>
+                <br>
+                <input type="text" v-model="message" placeholder="please input the message">
+            </div>
+            <div>
+                <h4>#CheckBox</h4>
+                <input id="checkbox" type="checkbox" v-model="checked" />
+                <label for="checkbox">the checkbox is checked: {{checked}}</label>
+
+                <br />
+
+                <input type="checkbox" id="box01" value="box01" v-model="checkedNames" />
+                <label for="box01">box01</label>
+                <input type="checkbox" id="box02" value="box02" v-model="checkedNames" />
+                <label for="box02">box02</label>
+                <input type="checkbox" id="box03" value="box03" v-model="checkedNames" />
+                <label for="box03">box03</label>
+                <br />
+                <span>CheckedNames:{{checkedNames|json}}</span>
+            </div>
+            <div>
+                <h4>#Radio</h4>
+                <input type="radio" id="man" value="man" v-model="picked" />
+                <label for="man">man</label>
+                <br />
+                <input type="radio" id="female" value="female" v-model="picked" />
+                <label for="female">female</label>
+                <br />
+                <span>Picked: {{ picked }}</span>
+            </div>
+            <div>
+                <h4>#Selected</h4>
+                <p>单选</p>
+                <select v-model="drSelected">
+                    <option selected="selected">A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                </select>
+                <span>the single selected is: {{drSelected}}</span>
+
+                <p>多选</p>
+                <select v-model="drMutiSelected" multiple style="text-align: center; overflow: hidden; width: 50px;">
+                    <option selected="selected">A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                </select>
+                <span>ctrl multiple selected:{{drMutiSelected}}</span>
+                <p>动态选项，用v-for渲染：</p>
+                <select v-model="dr02Selected">
+                    <option v-for="option in options" v-bind:value="option.value">
+                        {{option.text}}
+                    </option>
+                </select>
+                <span>Selected: {{ dr02Selected }}</span>
+            </div>
+        </div>
+        <h2>绑定Value</h2>
+        <div id="dr02">
+            <input id="02picked" type="radio" v-model="picked" v-bind:value="radio_picked">
+            <label for="02picked">the radio value:{{picked}}</label>
+
+            <br />
+
+            <input id="02checkbox" type="checkbox" v-model="toggle" v-bind:true-value="check_true" v-bind:false-value="check_false" />
+            <label for="02checkbox">the checkbox value:{{toggle}}</label>
+
+            <br />
+
+            <select v-model="selected">
+                <!-- 对象字面量 -->
+                <option v-bind:value="{number:123}">123</option>
+            </select>
+
+        </div>
+        <h2>参数特性</h2>
+        <div id="dr03">
+            <h4>#lazy</h4>
+            <!-- 在input元素中添加lazy属性将会当input出发change时候触发数据更新 -->
+            <input id="msg03" v-model="msg03" lazy/>
+            <label for="msg03">the input value is {{msg03}}</label>
+
+            <h4>#number</h4>
+            <input id="age" v-model="age" type="tel" number/>
+            <label for="age">the age is {{age}}</label>
+
+            <h4>#debounce</h4>
+            <input id="debounce" v-model="username" debounce="500" />
+            <label for="debounce">username is {{username}}</label>
+        </div>
+        <script>
+            var dr01 = new Vue({
+                el: '#dr01',
+                data: {
+                    message: "msg",
+                    checked: false,
+                    drSelected: "",
+                    drMutiSelected: "",
+                    checkedNames: [],
+                    dr02Selected: "",
+                    options: [{
+                        text: "one",
+                        value: "A"
+                    }, {
+                        text: "two",
+                        value: "B"
+                    }, {
+                        text: "three",
+                        value: "C"
+                    }, {
+                        text: "four",
+                        value: "D"
+                    }]
+                }
+            });
+            var dr02 = new Vue({
+                el: "#dr02",
+                data: {
+                    picked: "unpicked",
+                    radio_picked: "picked",
+                    toggle: "un_checked",
+                    check_true: "checked",
+                    check_false: "un_checked",
+                }
+            });
+            var dr03 = new Vue({
+                el: "#dr03",
+                data: {
+                    msg03: "msg03",
+                    age: 12,
+                    username: "wangzf",
+                }
+            });
+        </script>
+    </body>
+
+</html>

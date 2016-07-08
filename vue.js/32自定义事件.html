@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<h3>#自定义事件</h3>
+		<template id="dr02-temp">
+			<input v-model="msg" placeholder="please input your message!" />
+			<button @click="notifyAdd(msg)">Dispatche Event</button>
+		</template>
+		<div id="dr02">
+			<div>
+				<span>每个 Vue 实例都是一个事件触发器：</span>
+				<ol>
+					<li>使用 $on() 监听事件；</li>
+					<li>使用 $emit() 在它上面触发事件；</li>
+					<li>使用 $dispatch() 派发事件，事件沿着父链冒泡；</li>
+					<li>使用 $broadcast() 广播事件，事件向下传导给所有的后代。</li>
+				</ol>
+			</div>
+			<p>Messages: {{messages|json}}</p>
+			<child02></child02>
+		</div>
+	</body>
+	<script>
+		//***************************************************************
+		//自定义事件
+		Vue.component("child02", {
+			//定义模板中初始化的值
+			data: function() {
+				return {
+					msg: "hello",
+				}
+			},
+			//指定模板为id为"dr02-temp"标签
+			template: "#dr02-temp",
+			methods: {
+				//当点击按钮时会触发的事件
+				notifyAdd: function(msg) {
+					console.log("invoke notifyAdd()");
+					if (msg.trim()) {
+						//将事件分发到vm实例中的"addMsg"事件中
+						this.$dispatch("addMsg", msg);
+						this.msg = "";
+					}
+				}
+			}
+		});
+		var dr02 = new Vue({
+			el: "#dr02",
+			//初始化messages数组
+			data: {
+				messages: [],
+			},
+			events: {
+				//分发事件到vm实例中， 在创建实例时 `events` 选项简单地调用 `$on`
+				addMsg: function(msg) {
+					console.log("invoke events's addMsg()");
+					this.messages.push(msg);
+				}
+			},
+		});
+
+		复制代码
+	</script>
+
+</html>

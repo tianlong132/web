@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<h2>插值</h2>
+		<div id='dr01'>
+			<h4>#文本</h4>
+			<h5>双向数据绑定</h5>
+			<input v-model='msg0101' type='text' placeholder='双向数据绑定' />
+			<p>{{msg0101}}</p>
+
+			<h5>单次插值</h5>
+			<input v-model='msg0102' type='text' placeholder='单次插值' />
+			<p>{{*msg0102}}</p>
+
+			<hr />
+
+			<h4>#原始html文本：</h4>
+			<p>双大括号: {{msgHtml}}</p><span>msg是什么就输出什么，不会转义</p>
+			<p>三大括号: {{{msgHtml}}}</p><span>msg会发生转义"<"输出"<"，"{{msgLt}}"输出"<"</p>
+
+			<hr />
+
+			<h4>#html特性（Mustache 标签也可以用在 HTML 特性 (Attributes) 内：）</h4>
+			<ul>
+				<li v-for="item in items">
+					<span id="item-{{item.itemId}}">当前元素ID：item-{{item.itemId}} 。index:{{$index}}; itemName:{{item.itemName}}; itemDesc:{{item.itemDesc}}</span>
+				</li>
+			</ul>
+		</div>
+		<hr />
+		<div id="dr02">
+			<h4>#绑定表达式</h4>
+			<div>
+				<h5>JavaScript表达式</h5>
+				<div>
+					<p>10+1: {{number01+1}}</p>
+					<p>"10"+1: {{number02+1}}</p>
+				</div>
+				<div>
+					<p>ok01 is true: {{ok01?"ok01":"cancel01"}}</p>
+					<p>ok02 is false: {{ok02?"ok02":"cancel02"}}</p>
+					<p>ok03 is "hello": {{ok03?"ok03":"cancel03"}}</p>
+					<p>ok04 is "": {{ok04?"ok04":"cancel04"}}</p>
+				</div>
+				<div>
+					<p>this is message01在表达式中倒序: {{msg01.split("").reverse().join("")}}</p>
+				</div>
+				<!-- 在Vue实例的作用域内，每个绑定只能包含单个表达式，下面是错误示例，暂时注释掉 -->
+				<!--<div>-->
+				<!-- 这是一个语句，不是一个表达式： -->
+				<!--<span>{{var error01="this is error"}}</span>-->
+				<!--</div>-->
+				<!--<div>-->
+				<!-- 流程控制也不可以，可改用三元表达式 -->
+				<!--<span>{{if(error02){return message}}}</span>-->
+				<!--</div>-->
+			</div>
+			<hr />
+			<h4>过滤器</h4>
+			<div>
+				<div>
+					示例01：{{{fMsg01}}}
+					<p>
+						message是表达式，capitalize是过滤器
+					</p>
+				</div>
+				<div>
+					示例02：{{{fMsg02}}}
+					<p>
+						过滤器可以串联
+					</p>
+				</div>
+				<div>
+					示例03：{{{fMsg02}}}
+					<p>
+						过滤器可以接受参数，过滤器函数始终以表达式的值作为第一个参数。带引号的参数视为字符串，而不带引号的参数按表达式计算。这里，字符串 'arg1' 将传给过滤器作为第二个参数，表达式 arg2 的值在计算出来之后作为第三个参数。
+					</p>
+				</div>
+				<div>
+					<p>过滤器使用</p>
+					<ul>
+						<li v-for="item in fItems">
+							name: {{item.name|lowercase }}; price:{{item.price|currency "$"}}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script>
+		var dr01 = new Vue({
+			el: '#dr01',
+			data: {
+				msg0101: 'this is msg0101',
+				msg0102: 'this is msg0102',
+				msgHtml: '<span style="color:red;">\'this is less: &lt;\'</span>',
+				msgLt: '&lt;',
+				items: [{
+					itemId: "itemId01",
+					itemName: "itemName01",
+					itemDesc: "itemDesc01"
+				}, {
+					itemId: "itemId02",
+					itemName: "itemName02",
+					itemDesc: "itemDesc02"
+				}, {
+					itemId: "itemId03",
+					itemName: "itemName03",
+					itemDesc: "itemDesc03"
+				}, ]
+			}
+		});
+		var dr02 = new Vue({
+			el: "#dr02",
+			data: {
+				number01: 10,
+				number02: "10",
+				ok01: true,
+				ok02: false,
+				ok03: "hello",
+				ok04: "",
+				msg01: "this is message01",
+				error01: "this is error01",
+				error02: true,
+				fMsg01: "{{ message | capitalize }}",
+				fMsg02: "{{ message | filterA | filterB }}",
+				fMsg02: "{{ message | filterA 'arg1' arg2 }}",
+				fItems: [{
+					name: "《精通Spring》",
+					price: "38.80"
+				}, {
+					name: "《精通Hibiernate》",
+					price: "28.80"
+				}, {
+					name: "《精通Jquery》",
+					price: "25.99"
+				}, {
+					name: "《精通Vue》",
+					price: "18.88"
+				}]
+			},
+		});
+	</script>
+
+</html>

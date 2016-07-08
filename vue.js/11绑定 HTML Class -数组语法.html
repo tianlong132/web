@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.class-a {
+				color: #000;
+			}
+			
+			.class-b {
+				color: #ccc;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="demo" v-bind:class="[classA, classB]">样式文书测试</div>
+		<script>
+			var vm = new Vue({
+				el:"#demo",
+				data: {
+					classA: 'class-a',
+					classB: 'class-b'
+				}
+			})
+		</script>
+	</body>
+
+</html>

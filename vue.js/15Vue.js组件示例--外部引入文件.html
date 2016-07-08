@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/15template.js" ></script>
+	</head>
+	<body>
+		<div id="exm"><my-component></my-component></div>
+	</body>
+	<script>		
+  //渲染时自动解析自定义元素及绑定内容
+
+          var vm=new Vue(
+
+                {
+                    el:"#exm"
+                }
+
+            );
+	</script>
+</html>

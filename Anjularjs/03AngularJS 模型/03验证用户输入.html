@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/angular1.4.6.min.js"></script>
+	</head>
+
+	<body>
+		<form ng-app="" name="myForm">
+			Email:
+			<input type="email" name="myAddress" ng-model="text">
+			<span ng-show="myForm.myAddress.$error.email">不是一个合法的邮箱地址</span>
+		</form>
+	</body>
+
+</html>
