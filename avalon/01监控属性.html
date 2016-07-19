@@ -7,7 +7,7 @@
     <script src="js/avalon.js"></script>
  
     <script>
-        avalon.define({
+        var vm=avalon.define({
             $id: "test",
             str: "xxx",
             state: true,
@@ -16,10 +16,14 @@
                 aaa: "aaa",
                 bbb: "bbb"
             }
-        })
+        });
+       vm.$watch("str", function (a, b, name) {
+       console.log('新值:'+a,'旧值:'+b,'变化对象的名字:'+name);
+          console.log('旧值:'+b,'变化对象的名字:'+name);
+          console.log('变化对象的名字:'+name)
+})
     </script>
 </head>
- 
 <body>
     <div ms-controller="test">
         <input ms-duplex="@str">{{@str}}
@@ -30,5 +34,4 @@
         </ul>
     </div>
 </body>
- 
 </html>

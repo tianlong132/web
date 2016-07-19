@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/avalon.js"></script>
+	</head>
+
+	<body ms-controller="test">
+		<p>{{@firstName+' '+@lastName}}</p>
+		<script>
+			avalon.define({
+				$id: 'test',
+				firstName: '插值表达式使用测试',
+				lastName:'名称'
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/Common.css" />
+		<script src="js/avalon.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body ms-controller="for4">
+		<pre>循环绑定
+
+avalon2.0的ms-for绑定集齐了ms-repeat, ms-each, ms-with的所有功能, 并且更好用, 性能提升七八倍
+
+ms-for可以同时循环对象与数组
+
+<ul>
+    <li ms-for="el in @aaa">{{el}}</li>
+</ul>
+现在采用类似angular的语法, in前面如果只有一个变量,那么它就是数组元素或对象的属性名
+
+<ul>
+    <li ms-for="el in @bbb">{{el.vale}}-  {{el.text}}</li>
+</ul>
+in 前面有两个变量, 它们需要放在小括号里,以逗号隔开, 那么分别代表数组有索引值与元素, 或对象的键名与键值, 这个与jQuery或avalon的each方法的回调参数一致。
+
+如果你想截取数组的一部分出来单独循环,可以用limitBy过滤器, 使用使用as来引用新数组
+
+<ul>
+    <li ms-for="el in @aaa | limitBy(10) as items">{{el}}</li>
+</ul>
+上例是显示数组的前10个元素, 并且将这10个元素存放在items数组中, 以保存过滤或排序结果
+
+使用注释节点实现循环,解决同时循环多个元素的问题</pre>
+		<!--ms-for: el in @arr-->
+		<p>{{el}}</p>
+		<!--ms-for-end:-->
+		<script>
+			vm = avalon.define({
+				$id: 'for4',
+				arr: [1, 2, 3, 4],
+				aaa: [1, 2, 3, 4, 5],
+				bbb: [{
+					value: 0,
+					text: "感德镇"
+				}, {
+					value: 11,
+					text: "官桥镇"
+				}, {
+					value: 2,
+					text: "湖头镇"
+				}, {
+					value: 3,
+					text: "蓝田乡"
+				}, {
+					value: 4,
+					text: "龙涓乡"
+				}, {
+					value: 5,
+					text: "蓬莱镇"
+				}]
+			})
+		</script>
+	</body>
+
+</html>

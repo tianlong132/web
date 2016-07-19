@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/avalon.js" ></script>
+	</head>
+	<body ms-controller="test">
+		skip绑定<br />
+		让avalon的扫描引擎跳过某一部分区域, 方便能原样输出
+		ms-skip能大大提高性能
+		<div ms-controller='aaa'>
+      <div ms-skip>
+          {{@aaa}}会直接输出来
+      </div>
+      {{@aaa}}会替换成vm.aaa的值
+  </div>
+  <script>
+  	avalon.define({
+  		$id:"test",
+  		aaa:"测试值测试"
+  	})
+  </script>
+	</body>
+</html>

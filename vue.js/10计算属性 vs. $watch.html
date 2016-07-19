@@ -20,8 +20,7 @@
 					lastName: 'Bar',
 					fullName: 'Foo Bar'
 				}
-			})
-
+			});
 			vm.$watch('firstName', function(val) {
 				this.fullName = val + ' ' + this.lastName
 			})
