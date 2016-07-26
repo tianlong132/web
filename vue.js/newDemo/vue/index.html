@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app">
+			<template v-if="ok">
+				<h1>Title</h1>
+				<p>Paragraph 1</p>
+				<p>Paragraph 2</p>
+			</template>
+			<div v-if="Math.random() > 0.5">
+				Sorry
+			</div>
+			<div v-else>
+				Not sorry
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../js/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				a: 1,
+				ok: true
+			},
+			created: function() {
+				// `this` 指向 vm 实例
+				console.log('a is: ' + this.a)
+			}
+		})
+	</script>
+
+</html>

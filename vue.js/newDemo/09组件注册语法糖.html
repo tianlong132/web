@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app1">
+		<my-component1></my-component1>
+		</div>
+		<script type="text/javascript" src="../js/vue.js"></script>
+		<script>
+			// 全局注册，my-component1是标签名称
+			Vue.component('my-component1', {
+				template: '<div>This is the first component!</div>'
+			})
+
+			var vm1 = new Vue({
+				el: '#app1'
+
+			})
+		</script>
+	</body>
+
+</html>
